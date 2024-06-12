@@ -19,7 +19,7 @@ os
 io
 cv2
 filterpy.stats
-sklearn
+sklearn<br>
 ffmpegもインストールする必要があるかも？
 
 # Installation
