@@ -32,7 +32,7 @@ python EM_algorithm.py
 # 使い方
 
 以下の実行によりfigureフォルダの中にrandom_number~.svgとEM_algorithm.mp4が自動で作成される.<br>
-random_number~.svg：データ点(赤)を生成するのに使用した分布
+random_number~.svg：データ点(赤)を生成するのに使用した分布<br>
 EM_algorithm.mp4：EM-algorithmの実行途中
 
 ```bash
