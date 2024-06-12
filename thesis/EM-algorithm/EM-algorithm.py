@@ -8,15 +8,49 @@ from filterpy.stats import plot_covariance_ellipse
 from matplotlib import cm
 from sklearn.cluster import KMeans
 import os
-matplotlib.use('TkAgg')
+import glob
+import cv2
+# from reportlab.graphics import renderPM
+from PIL import Image
+from pathlib import Path
+import io
 
 
-#EM-algorithmを可視化するプログラム
+# matplotlib.use('TkAgg')
+
+# #figureの作成
+# fig = plt.figure(figsize=(12.8,7.8*2))
+
+# #subplotの作成
+# #ax1〜ax4にsubplotを追加する
+# ax1 = fig.add_subplot(2, 1, 1) #1つ目のsubplot 2行2列の1つ目
+# ax2 = fig.add_subplot(2, 1, 2) #2つ目のsubplot 2行2列の2つ目
+
+# #1つ目のグラフ（折れ線グラフ）の作成
+# Y1 = np.random.randint(0, 100, 5) #棒グラフのデータを作成
+# ax1.plot(Y1)#ax1に棒グラフを指定
+# ax1.set_title("graph1") 
+
+# #2つ目のグラフ（棒グラフ）の作成
+# X1 = range(0, 5) #横軸の値
+# Y2 = np.random.randint(0, 100, 5) #グラフのデータ
+# ax2.bar(X1, Y2) #ax2に棒グラフを指定
+# ax2.set_title("graph2")
+
+# #グラフの表示
+# plt.show()
+
 def main():
-    #近似したい混合正規分布のパラメータを設定する
+    matplotlib.use('TkAgg')
+    n_components=2 #混合数の上限
+    tol = 1e-3 #emアルゴリズムの収束閾値
+    max_iter = 10000 #emアルゴリズムの反復回数の上限
+    np.random.seed(32)
+
+    #元の分布
     sig = 25
-    weight = np.array([0.6,0.3,0.1])#混合正規分布の重み
-    sigma = np.array([#混合正規分布の分散共分散行列(簡単のため、対角行列のみ
+    weight = np.array([0.6,0.3,0.1])
+    sigma = np.array([
             [[sig,0],
             [0,sig]],
             [[sig,0],
@@ -24,28 +58,27 @@ def main():
             [[sig,0],
             [0,sig]]
     ])
-    mu = np.array([#混合正規分布の平均
+    mu = np.array([
         [32, 18],
         [96, 54],
         [96, 18]
     ])
 
-    #初期値の設定(簡単のため、重みと分散共分散行列は真値、平均のみ真値を中心とした乱数を生成する)
+    #初期値の設定
+    #重みの設定
     weight_init = weight
+    #分散共分散行列の設定
     sigma_init = sigma
-    np.random.seed(32)
     mu_init = np.empty((3,2))
-    mu_init[0:2,1] = 18*np.random.randn(2)+36
-    mu_init[0:2,0] = 32*np.random.randn(2)+64
-    mu_init[2,0] = mu_init[1,0]+1
-    mu_init[2,1] = mu_init[1,1]
-
-    folder_name = "EMalgorithm_plot"
-
+    mu_init[:,1] = 18*np.random.randn(3)+36
+    mu_init[:,0] = 32*np.random.randn(3)+64
+    
+    folder_name = "figure"
+    os.makedirs(folder_name,exist_ok=True)
+    
     # パラメータの設定
     N = 10000
     K = 3
-
 
     x1_grid = np.arange(0, 128, 1)
     x2_grid = np.arange(0, 72, 1)
@@ -54,38 +87,45 @@ def main():
     # 同時分布を計算
     P = p(X1, X2, mu, sigma, weight)
     sal = P
-    # xym = np.c_[X1.ravel(), X2.ravel()]
-    # N = xym.shape[0]
     xym = make_random(N,sal)
-    print("km_start")
-    # kmeans = KMeans(n_clusters=K).fit(xym)
-    # print("km_fin")
-    # mu_init = kmeans.cluster_centers_
-    print(mu_init)
     N = xym.shape[0]
     H_zfill = 3
 
     #乱数の設定(n個)
     make_figure_gauss(X1,X2,P)
     os.makedirs(folder_name,exist_ok=True)
+    
     sigma_plus = sigma_init
     mu_plus = mu_init
     weight_plus = weight_init
-    make_figure_gaussian_plot_black_init(xym,0,H_zfill,folder_name)
-    make_figure_gaussian_plot_black(xym,mu_plus,sigma_plus,1,H_zfill,folder_name)
-
-    for i in range(2,50):
-        # make_figure_gaussian_plot_black(xym, mu_plus, sigma_plus,4*i+1,H_zfill,folder_name)
+    img_array = []
+    number = 0
+    size = (1280, 720)
+    size = (1280,1440)
+    name = 'figure/EM_algorithm.mp4'
+    out = cv2.VideoWriter(name, cv2.VideoWriter_fourcc(*'MP4V'), 2.0, size)
+    image = make_figure_gaussian_plot_black_init(xym,0,H_zfill,folder_name)
+    out.write(image)
+    # 画像を表示
+    image = make_figure_gaussian_plot_black(xym,mu_plus,sigma_plus,1,H_zfill,folder_name)
+    out.write(image)    
+    for i in range(1,15):
         responsibility, d = cal_responsibility(xym, N, K, sigma_plus, mu_plus, weight_plus)
-        make_figure_gaussian_plot_colored(xym, mu_plus,sigma_plus,4*i+2,responsibility,H_zfill,folder_name)
+        image = make_figure_gaussian_plot_colored(xym, mu_plus,sigma_plus,2*i,responsibility,H_zfill,folder_name)
+        out.write(image)
         gram_matrix = make_gram_matrix(d)
+        print(str(i)+"/20")
         sigma_plus, mu_plus, weight_plus = next_gauss(responsibility, gram_matrix, xym)
-        
-        make_figure_responsibility(xym, mu_plus, sigma_plus, 4*i+3, responsibility, H_zfill, folder_name)
-        make_figure_gaussian_plot_colored(xym, mu_plus,sigma_plus,4*i+4,responsibility,H_zfill,folder_name)
+        image = make_figure_gaussian_plot_colored(xym,mu_plus,sigma_plus,2*i+1,responsibility,H_zfill,folder_name)
+        out.write(image)
     print(sigma_plus)
     print(mu_plus)
     print(weight_plus)
+    out.release()
+
+
+
+
 #顕著性マップの分布に従う乱数の生成
 def make_random(n,sal):
     # np.random.seed(seed=32)
@@ -162,7 +202,7 @@ def make_figure_gauss(X1,X2,P):
     ax.invert_yaxis()
     ax.scatter(xy_in[:,1], xy_in[:,0], xy_in[:,2], marker=".", color="red")
     ax.scatter(xy_out[:,1], xy_out[:,0], xy_out[:,2], marker=".", color="green")
-    plt.savefig("figure/random_based_gauss.svg")
+    plt.savefig("figure/random_number_and_gaussian.svg")
 
     # plt.show()
     plt.close(fig)
@@ -173,10 +213,8 @@ def cal_responsibility(xym, N, K, sigma, mu, weight):
     x_all = np.repeat(xym[:, np.newaxis, :], K, axis=1)
     x_all = np.repeat(x_all[:, :, np.newaxis, :], 1, axis=2)
     #平均muの設定，無理やりN×K×1×2にしている
-    # print(mu.shape)
     mu_all = np.tile(mu, (N, 1, 1))
     mu_all = np.repeat(mu_all[:,:,np.newaxis,:],1,axis=2)
-    # print(mu_all.shape)
 
     #分散共分散行列の設定，N×K×2×2行列
     sigma_all = np.tile(sigma, (N, 1, 1, 1))
@@ -185,7 +223,7 @@ def cal_responsibility(xym, N, K, sigma, mu, weight):
     inv = np.linalg.inv(sigma_all)
     d = x_all - mu_all
     n = x_all.shape[1]
-    # print(x_all.shape[1])
+
     norm = np.sqrt((2 * np.pi) ** n * det)
     power = - np.einsum('ijkl, ijkl,ijkl->ij',d, inv, d) /2.0
 
@@ -196,6 +234,7 @@ def cal_responsibility(xym, N, K, sigma, mu, weight):
     gaussian_mixture = np.sum(gaussian_one,axis=1)[:,np.newaxis]
     responsibility = gaussian_one/gaussian_mixture
     responsibility = responsibility/np.sum(responsibility,axis=1)[:,np.newaxis]
+
     return responsibility, d
 
 def make_gram_matrix(d):
@@ -223,76 +262,70 @@ def next_gauss(responsibility, gram_matrix, xym):
 
     return sigma_plus, mu_plus, weight_plus
 
-def make_figure_responsibility(xym, mu, sigma, K, responsibility, H_zfill, folder_name):
-    fc2 = ["r", "g", "b"]
-    # グラフ表示
-    fig, ax = plt.subplots(1,1,figsize=(12.8,7.2))
-    for i in range(responsibility.shape[0]):
-        ax.plot(xym[i,0],xym[i,1],marker=".",linewidth=0,color=(responsibility[i,0],responsibility[i,1],responsibility[i,2],1),zorder=0)
-        # print(i)
-    ax.invert_yaxis()
-
-    # for i in range(mu.shape[0]):
-    #     a = plot_covariance_ellipse(mu[i,:], sigma[i,:], fc=fc2[i], alpha=0.3, std=[1,2,3])
-    
-    ax.set_xlim(0,128)
-    ax.set_ylim(0,72)
-    # name = folder_name+"/"+str(K).zfill(H_zfill)+".svg"
-    # fig.savefig(name)
-    name = folder_name+"/"+str(K).zfill(H_zfill)+".png"
-    fig.savefig(name)
-    plt.close(fig)
-
 def make_figure_gaussian_plot_colored(xym, mu, sigma, K, responsibility, H_zfill, folder_name):
     # グラフ表示
     fc2 = ["r", "g", "b"]
-    fig, ax = plt.subplots(1,1,figsize=(12.8,7.2))
+    fig = plt.figure(figsize=(12.8,7.2*2))
+    ax1 = fig.add_subplot(2,1,1)
     for i in range(responsibility.shape[0]):
-        ax.plot(xym[i,0],xym[i,1],marker=".",linewidth=0,color=(responsibility[i,0],responsibility[i,1],responsibility[i,2],0.3),zorder=0)
+        ax1.plot(xym[i,0],xym[i,1],marker=".",linewidth=0,color=(responsibility[i,0],responsibility[i,1],responsibility[i,2],0.3),zorder=0)
+    ax1.set_xlim(0,128)
+    ax1.set_ylim(0,72)
 
+    ax2 = fig.add_subplot(2,1,2)
     for i in range(mu.shape[0]):
         a = plot_covariance_ellipse(mu[i,:], sigma[i,:], fc=fc2[i], alpha=0.3, std=[1,2,3])
-    plt.close(fig)
-    ax.set_xlim(0,128)
-    ax.set_ylim(0,72)
+    ax2.set_xlim(0,128)
+    ax2.set_ylim(0,72)
     name = folder_name+"/"+str(K).zfill(H_zfill)+".png"
-    fig.savefig(name)
-    plt.close(fig)  
+    image = plt_to_opencv(fig)
+    plt.close(fig)
+    return image  
 
 def make_figure_gaussian_plot_black(xym, mu, sigma, K, H_zfill, folder_name):
     # グラフ表示
     fc2 = ["r", "g", "b"]
-    fig = plt.figure(figsize=(12.8,7.2*2))
-    ax = plt.subplots(1,1,figsize=(12.8,7.2))
-    ax.plot(xym[:,0],xym[:,1],marker=".",linewidth=0,color="k",zorder=0)
-    ax.invert_yaxis()
-    ax.set_xlim(0,128)
-    ax.set_ylim(0,72)
+    fig = plt.figure(figsize=(12.8, 7.2*2)) 
+    ax1 = fig.add_subplot(2,1,1)
+    ax1.plot(xym[:,0],xym[:,1],marker=".",linewidth=0,color="k",zorder=0)
+    ax1.set_xlim(0,128)
+    ax1.set_ylim(0,72)
+
+    ax2 = fig.add_subplot(2,1,2)
     for i in range(mu.shape[0]):
         a = plot_covariance_ellipse(mu[i,:], sigma[i,:], fc=fc2[i], alpha=0.3, std=[1,2,3])
-    plt.close(fig)
-    print(mu)
+    ax2.set_xlim(0,128)
+    ax2.set_ylim(0,72)
     name = folder_name+"/"+str(K).zfill(H_zfill)+".png"
-    fig.savefig(name)
-    plt.close(fig)    
+    image = plt_to_opencv(fig)
+    plt.close(fig)
+    return image  
 
 def make_figure_gaussian_plot_black_init(xym, K, H_zfill, folder_name):
     # グラフ表示
     fc2 = ["r", "g", "b"]
-    fig, ax = plt.subplots(1,1,figsize=(12.8,7.2))
-    ax.plot(xym[:,0],xym[:,1],marker=".",linewidth=0,color="k",zorder=0)
-        # print(i)
-    ax.invert_yaxis()
+    fig = plt.figure(figsize=(12.8,7.2*2))
+    ax1 = fig.add_subplot(2,1,1)
+    ax1.plot(xym[:,0],xym[:,1],marker=".",linewidth=0,color="k",zorder=0)
     plt.close(fig)
-    ax.set_xlim(0,128)
-    ax.set_ylim(0,72)
-    # print(mu)
-    # name = folder_name+"/"+str(K).zfill(H_zfill)+".svg"
-    # fig.savefig(name)
+    ax1.set_xlim(0,128)
+    ax1.set_ylim(0,72)
     name = folder_name+"/"+str(K).zfill(H_zfill)+".png"
-    fig.savefig(name)
-    plt.close(fig)  
+    image = plt_to_opencv(fig)
+    plt.close(fig)
+    return image
 
+def plt_to_opencv(fig):
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png")
+    buf.seek(0)
+    image = np.frombuffer(buf.getvalue(), dtype=np.uint8)
+    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+    
+    # OpenCV では BGR 形式で扱われるため、色の順番を変更
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    buf.close()
+    return image
 
 if __name__ == "__main__":
     main()
