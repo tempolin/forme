@@ -6,6 +6,10 @@ EMアルゴリズム徹底解説 "https://qiita.com/kenmatsu4/items/59ea3e5dfa3d
 
 # DEMO
 
+
+https://github.com/tempolin/forme/assets/168509729/e3edb5dd-2ffc-4b39-b552-4a60646e7d06
+
+
 # Features
 
 実装のポイントとしては、二次元の場合、行列の計算が複雑となるため、テンソルを扱うことができるnp.einsumを使用していることである。  <br>
