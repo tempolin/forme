@@ -12,46 +12,49 @@ EM-algorithmとは未知のデータの分布を混合ガウス分布で近似�
 
 # Requirement
 
-"hoge"を動かすのに必要なライブラリなどを列挙する
-
-* huga 3.5.2
-* hogehuga 1.0.2
+numpy
+matplotlib
+os
+io
+cv2
+filterpy.stats
+sklearn
+ffmpegもインストールする必要があるかも？
 
 # Installation
-
-EM-algorithmの説明をする
+関連ライブラリをインストールする必要がある。
 
 ```bash
-pip install huga_package
+python EM_algorithm.py
 ```
 
 # 使い方
 
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
+以下の実行によりfigureフォルダの中にrandom_number~.svgとEM_algorithm.mp4が自動で作成される.<br>
+random_number~.svg：データ点(赤)を生成するのに使用した分布
+EM_algorithm.mp4：EM-algorithmの実行途中
 
 ```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
+python EM_algorithm.py
 ```
 
 # Note
+行列の計算を非線形な関数に代入して計算するため、実行時間が長い
 
-注意点などがあれば書く
 
 # Author
 
 作成情報を列挙する
 
-* 作成者
+* 作成者：tempolin
 * 所属
-* E-mail
+* E-mail：
 
 # License
 ライセンスを明示する
 
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
+"EM_algorithm" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
 
 社内向けなら社外秘であることを明示してる
 
-"hoge" is Confidential.
+
