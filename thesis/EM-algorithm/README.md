@@ -1,7 +1,7 @@
 # EM-algorithm
 EM-algorithmとは未知のデータの分布を混合ガウス分布で近似する際に使用される。 <br>
 詳細は以下にまとまっているので参照をお勧めする。  <br>
-"https://qiita.com/kenmatsu4/items/59ea3e5dfa3d4c161efb"<br>
+EMアルゴリズム徹底解説 "https://qiita.com/kenmatsu4/items/59ea3e5dfa3d4c161efb"<br>
 理論自体ややこしいが、実装する内容は基本的に負担率の計算と負担率を用いたパラメータの更新である。  <br>
 
 # DEMO
