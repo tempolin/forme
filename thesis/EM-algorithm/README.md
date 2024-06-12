@@ -5,7 +5,8 @@ EMアルゴリズム徹底解説 "https://qiita.com/kenmatsu4/items/59ea3e5dfa3d
 理論自体は少しややこしいが、実装する内容は基本的に負担率の計算と負担率を用いたパラメータの更新である。  <br>
 
 # DEMO
-https://github.com/tempolin/forme/assets/168509729/e655e4d9-77ac-43bc-afbc-5be8f6cd7d5a
+
+https://youtube.com/shorts/BlKZS7myFBA?feature=share
 
 
 # Features
