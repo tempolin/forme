@@ -56,6 +56,4 @@ python EM_algorithm.py
 
 "EM_algorithm" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
 
-社内向けなら社外秘であることを明示してる
-
 
