@@ -6,7 +6,7 @@ EMアルゴリズム徹底解説 "https://qiita.com/kenmatsu4/items/59ea3e5dfa3d
 
 # DEMO
 
-[![alt設定](http://img.youtube.com/vi/{video-id}/0.jpg)](https://www.youtube.com/shorts/bkb0RVMxY_0)
+[![EM-algorithm]](https://www.youtube.com/shorts/bkb0RVMxY_0)
 
 
 # Features
