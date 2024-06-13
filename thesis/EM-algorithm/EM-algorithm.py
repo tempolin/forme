@@ -237,6 +237,7 @@ def cal_responsibility(xym, N, K, sigma, mu, weight):
 
     return responsibility, d
 
+#グラム行列の計算
 def make_gram_matrix(d):
     #１×2行列の1部分を取り出している．
     d_p = d[:, :, 0 ,:]
