@@ -16,7 +16,7 @@ https://www.youtube.com/shorts/bkb0RVMxY_0
 これにより、for文を用いることなく計算でき、計算時間を短縮することができる。  
 
 # Requirement
-
+pythonでは
 numpy
 matplotlib
 os
@@ -24,7 +24,7 @@ io
 cv2
 filterpy.stats
 sklearn<br>
-ffmpegもインストールする必要があるかも？
+コーデックのffmpegもインストールする必要あり
 
 # Installation
 関連ライブラリをインストールする必要がある。
