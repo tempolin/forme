@@ -19,7 +19,10 @@
 "hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
 
 # Features
-
+動的顕著性マップ：動画のうち注視しやすい領域をカラーマップなどの形で表したもの<br>
+通常、機械学習などを用いて作成される。<br>
+提案手法では "Droste(2020)"を用いて作成した<br>
+URL：https://github.com/rdroste/unisal<br>
 "hoge"のセールスポイントや差別化などを説明する
 
 # Requirement
