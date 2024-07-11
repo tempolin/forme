@@ -2,4 +2,10 @@
 顕著性マップを近似する理由は推定に用いる場合，顕著性マップのパラメータ数が非常に多いことがあげられる．<br>
 顕著性マップを近似することでパラメータ数が1920×1080から60に減少する．<br>
 以下に示すものは顕著性マップと顕著性マップを混合ガウス分布を用いて近似したものである．<br>
+![SaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/a9486594-9611-419d-aa3c-92263abc3a70)
+![GaussianSaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/5644359d-ad6d-4ffd-bae0-c94ef5bb77e8)
 動画の顕著性が存在する領域に対して大幅に情報を失うことなく，近似を行えているといえる．<br>
+
+
+
+
