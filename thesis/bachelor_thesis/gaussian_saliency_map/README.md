@@ -20,12 +20,8 @@
 # Usage
 動画(Sample.mp4)を用意する
 
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
-
 ```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
+python Gaussian.py Sample.mp4
 ```
 
 # Note
