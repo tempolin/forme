@@ -9,7 +9,7 @@
 |Before|After|
 |:-:|:-:|
 |<video src="SaliencyMapExample01.mp4">|<video src="GaussianSaliencyMapExample01.mp4">|
-
+<div><video controls src="<!---"SaliencyMapExample01.mp4"--->" muted="false"></video></div>
 # Requirement
 
 "hoge"を動かすのに必要なライブラリなどを列挙する
