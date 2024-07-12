@@ -10,9 +10,6 @@
 |:-:|:-:|
 |<video src="https://github.com/tempolin/forme/assets/168509729/a9486594-9611-419d-aa3c-92263abc3a70">|<video src="https://github.com/tempolin/forme/assets/168509729/5644359d-ad6d-4ffd-bae0-c94ef5bb77e8">|
 
-![SaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/a9486594-9611-419d-aa3c-92263abc3a70)
-![GaussianSaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/5644359d-ad6d-4ffd-bae0-c94ef5bb77e8)
-
 # Requirement
 
 "hoge"を動かすのに必要なライブラリなどを列挙する
