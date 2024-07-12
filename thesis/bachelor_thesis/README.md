@@ -14,7 +14,6 @@
 
 # 提案手法の流れ
 <img src="method.gif" width="400">
-![method](https://github.com/user-attachments/assets/46256d2d-8a6c-4081-a736-465f850722f6)
 
 # DEMO
 
