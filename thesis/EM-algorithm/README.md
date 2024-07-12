@@ -13,8 +13,7 @@ https://www.youtube.com/shorts/bkb0RVMxY_0
 # Features
 
 実装のポイントとしては、二次元の場合、行列の計算が複雑となるため、<br>
-テンソルを扱うことができるnp.einsumを使用していることである。  <br>
-これにより、for文を用いることなく計算でき、計算時間を短縮することができる。  
+テンソルが使用可能なnp.einsumを使用していることである。  <br>
 
 # Requirement
 pythonでは
