@@ -12,10 +12,7 @@
 # Requirement
 
 "hoge"を動かすのに必要なライブラリなどを列挙する
-
-* huga 3.5.2
-* hogehuga 1.0.2
-
+cv2、sys、numpy、sklearn.mixture、matplotlib.pyplotなど
 # Installation
 # Usage
 動画(Sample.mp4)を用意する
