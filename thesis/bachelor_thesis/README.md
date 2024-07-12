@@ -13,7 +13,7 @@
 
 
 # 提案手法の流れ
-<img src="method.gif" width="400">
+<img src="method.gif" width="600">
 
 # DEMO
 
