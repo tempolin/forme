@@ -67,7 +67,7 @@ python demo.py
 ライセンスを明示する
 講義動画のURL<br>
 動画の作成者に資料等で使用する許可は得ているものの、本編の二次配布はできないため以下のリンクを参照<br>
-フラクタルとは：https://www.youtube.com/watch?v=fnofGm_IHUw
+フラクタルとは(大阪大学基礎工学研究科清野健教授よりいただいた)：https://www.youtube.com/watch?v=fnofGm_IHUw
 
 
 "hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
