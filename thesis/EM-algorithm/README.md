@@ -51,7 +51,6 @@ maplotlibにおいて点の色を負担率毎に変えた場合、for文を用�
 
 # License
 ライセンスを明示する
-
-"EM_algorithm" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
+under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
 
 
