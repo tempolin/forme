@@ -8,7 +8,7 @@
 動画の顕著性が存在する領域に対して大幅に情報を失っていないことが分かる。<br>
 |Before|After|
 |:-:|:-:|
-|<video src="https://github.com/tempolin/forme/assets/168509729/a9486594-9611-419d-aa3c-92263abc3a70">|<video src="https://github.com/tempolin/forme/blob/main/thesis/bachelor_thesis/gaussian_saliency_map/GaussianSaliencyMapExample01.mp4">|
+|<video src="https://github.com/tempolin/forme/assets/168509729/a9486594-9611-419d-aa3c-92263abc3a70">|<video src="GaussianSaliencyMapExample01.mp4">|
 
 # Requirement
 
