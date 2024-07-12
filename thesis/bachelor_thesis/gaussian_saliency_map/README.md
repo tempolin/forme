@@ -5,9 +5,9 @@
 
 # DEMO
 以下に示すものは顕著性マップ(左)と混合ガウス分布を用いた顕著性マップの近似結果(右)である．<br>
-動画の顕著性が存在する領域に対して大幅に情報を失っていないことわかる．<br>
+動画の顕著性が存在する領域に対して大幅に情報を失っていないことが分かる。<br>
 ![SaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/a9486594-9611-419d-aa3c-92263abc3a70)
-![GaussianSaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/5644359d-ad6d-4ffd-bae0-c94ef5bb77e8)<br>
+![GaussianSaliencyMapExample01](https://github.com/tempolin/forme/assets/168509729/5644359d-ad6d-4ffd-bae0-c94ef5bb77e8)
 
 # Requirement
 
