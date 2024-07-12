@@ -16,14 +16,17 @@ cv2、sys、numpy、sklearn.mixture、matplotlib.pyplotなど
 # Installation
 # Usage
 動画(Sample.mp4)を用意する
+以下のコマンドで動画の顕著性マップ、顕著性マップの近似結果、近似に使用したデータ点の動画が保存される。
 
 ```bash
-python Gaussian.py Sample.mp4
+python MakeGaussianSaliencyMap.py Sample.mp4
 ```
 
 # Note
+混合ガウス分布を計算+動画を作成しているので計算時間が非常に長い()<br>
 今回，デフォルトの顕著性マップとしてOpenCVの顕著性マップを用いている<br>
 提案手法のような精度が必要であれば，Drosteの顕著性マップ(再配布できないため)をsalに代入する必要がある．<br>
+
 
 # Author
 
