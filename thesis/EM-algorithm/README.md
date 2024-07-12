@@ -27,13 +27,6 @@ filterpy.stats
 sklearn<br>
 コーデックのffmpegもインストールする必要あり
 
-# Installation
-関連ライブラリをインストールする必要がある。
-
-```bash
-python EM_algorithm.py
-```
-
 # 使い方
 
 以下の実行によりfigureフォルダの中にrandom_number~.svgとEM_algorithm.mp4が自動で作成される.<br>
